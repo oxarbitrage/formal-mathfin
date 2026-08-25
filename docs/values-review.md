@@ -3169,6 +3169,58 @@ characterization is nowhere claimed.
    "good enough" in-file; a Lean-aware scanner is not worth its weight while
    the catch rate is this good (1 for 1 on first run).
 
+## 2026-08-24 — corpus 367 — the bracket earns its name (#200)
+
+A one-issue proof session: `ItoIntegralAgainstMartingale.norm_sq_increment_eq_bracket` proves
+`𝔼[(M_b − M_a)²] = ⟨M⟩((a,b] × Ω)` — the unconditional second moment of an increment equals the
+bracket measure of its time band — with `itoIntegralCLM_T_bandRestrict` extracted from
+`itoIntegralAgainst_elementary` (which now consumes it; it is wanted exactly twice). No corpus
+growth: 367 entries, statuses unchanged.
+
+### The standing first pass — prose against statement
+
+The new docstrings state an *unconditional* identity and name what is not proved: no pathwise
+quadratic variation, no conditional refinement. The module docstring, the `bracketMeasure`
+def-docstring, and `docs/leaps.md` were all moved off "motivation, not a formalised
+identification" onto "earned at the level of expectations, conditional form unclaimed" — checked
+against the statement (`‖·‖²` on `L²(μ)` is indeed the second moment). The witness check
+(standing since last round) was applied: neither new theorem introduces a hypothesis, so there
+is nothing to exhibit.
+
+One honest-scope observation recorded rather than papered over: at this tower's generality the
+bracket measure integrates `ω` out, so the identity cannot distinguish a random bracket
+`∫_a^b φ(s,·)² ds` from its expectation. That is exactly why the conditional refinement
+(`𝔼[(M_b−M_a)² | 𝓕_a] = 𝔼[⟨M⟩_b − ⟨M⟩_a | 𝓕_a]`) stays out — it would force the pointwise,
+adapted bracket process, which this file does not construct.
+
+### Upgrades executed
+
+- **#200 closed** (lens 1 + lens 5): the definition's name is now backed by the theorem the
+  name was borrowed for, in the exact form the tower supports.
+- **A duplicated derivation deleted**: `itoIntegralAgainst_elementary`'s inline band step became
+  `itoIntegralCLM_T_bandRestrict`; net code shrank while adding a theorem.
+- **A reusable idiom surfaced as a private lemma** (`lpNorm_sq_eq_lintegral_enorm_sq`):
+  `‖W‖²_{L²} = (∫⁻ ‖W‖ₑ² ∂ν).toReal`, the bridge by which a second moment meets a measure of a
+  set. Kept private until a second consumer exists — if #194 or any QV work needs it, lift it to
+  `LpMulIsometry`.
+
+### Ranked backlog out of this round
+
+| rank | item | owner |
+|---|---|---|
+| 1 | Pointwise bracket process `t ↦ ∫₀ᵗ φ_s² ds` (adapted, increasing) + the conditional second-moment identity — the rung above #200 | unassigned |
+| 2 | #199 — collapse `simpleAssembly_T`, fixing the dependency direction | unassigned |
+| 3 | Regenerate `docs/blueprint.md` (carried; the chain-rule tower edges are still missing) | next session |
+| 4 | #194 — drift term in the Itô-process price | unassigned |
+| 5 | Audit `trim_T`-specific lemmas for hidden measure-genericity (carried) | unassigned |
+| 6 | #202 / #201 — small infra (ledger abort reporting; compose project-name collision) | infra slot |
+
+### Evidence/context
+
+Mechanical floor: `lake build MathFin` + `lake lint` green in-container (daemon down); pytest
+24/24; `axiom_audit_gen --write` byte-stable (327 guards); ledger re-verified — 4 stale entries
+(the downstream consumers of the changed module), all OK via the daemon, 367/367 fresh.
+
 ## 2026-08-17 — corpus 358 — coherence pass over the chain-rule tower
 
 A review round that produced code. No corpus growth: the session's subject was what the previous

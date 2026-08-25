@@ -285,10 +285,10 @@
     },
     "gir-pricing-measure-density": {
       "benchmark_file": "girsanov_finance.json",
-      "date": "2026-08-20",
-      "elapsed_s": 5.0,
-      "input_hash": "015cc275b9c04e7e8e854575d2d25efa2d9775aad8f0846698cb929e7cd334a3",
-      "verified_at_commit": "70acfe0"
+      "date": "2026-08-24",
+      "elapsed_s": 85.9,
+      "input_hash": "6fba4ad18cf52ee59cbea67af34c2b1b6b6071b788c05552e30ee95e8ee77a7d",
+      "verified_at_commit": "e938abf"
     },
     "gir-pricing-measure-unique": {
       "benchmark_file": "girsanov_finance.json",
@@ -299,10 +299,10 @@
     },
     "gir-replication-in-price": {
       "benchmark_file": "girsanov_finance.json",
-      "date": "2026-08-20",
-      "elapsed_s": 5.5,
-      "input_hash": "6ace545f37fb03e36a9b70e997b8e23d601b88deab18e2e3fc13b9f52667da68",
-      "verified_at_commit": "70acfe0"
+      "date": "2026-08-24",
+      "elapsed_s": 53.6,
+      "input_hash": "b5f06e42e0e7a5dd8ca4277ff5d3f245a5b165aef308f57fead94f0321f68468",
+      "verified_at_commit": "e938abf"
     },
     "gir-simple-adapted": {
       "benchmark_file": "girsanov_finance.json",
@@ -2301,10 +2301,10 @@
     },
     "sc-ito-chain-rule": {
       "benchmark_file": "stochastic_calculus.json",
-      "date": "2026-08-20",
-      "elapsed_s": 5.3,
-      "input_hash": "af8b4bbf4b6c27678f7483b1af2ab32b3c4fa153e57de1a2014ca8d1ccbcda50",
-      "verified_at_commit": "70acfe0"
+      "date": "2026-08-24",
+      "elapsed_s": 17.3,
+      "input_hash": "00c0bc0288c104a5f41474d93692d4aa8770b027dc66d75efa9c3c389ab404bf",
+      "verified_at_commit": "e938abf"
     },
     "sc-ito-covariation-bilinear-isometry": {
       "benchmark_file": "stochastic_calculus.json",
@@ -2413,10 +2413,10 @@
     },
     "sc-ito-integral-band": {
       "benchmark_file": "stochastic_calculus.json",
-      "date": "2026-08-20",
-      "elapsed_s": 4.0,
-      "input_hash": "eeb8548ec606aaff49fb3cd6c16a4b1cdccbc106a62a2812dadca93e1a04d556",
-      "verified_at_commit": "70acfe0"
+      "date": "2026-08-24",
+      "elapsed_s": 104.9,
+      "input_hash": "f066bea4e30df4a6a96c4f9f4e95687d518a6da377ab90c8b8009768a736ec9d",
+      "verified_at_commit": "e938abf"
     },
     "sc-ito-simple-process-isometry": {
       "benchmark_file": "stochastic_calculus.json",

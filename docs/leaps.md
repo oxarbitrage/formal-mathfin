@@ -233,12 +233,14 @@ integral against `B`, and a trader holds units of `S`. Six places in the repo re
 missing primitive, `∫ φ dS`. Leap 6 builds it.
 
 The construction is a transport, not a second tower. For a driver `φ`, the Itô integral process
-`M = φ●B` has bracket `d⟨M⟩ = φ² ds` in the standard theory — a motivation, not a formalised
-identification: the repo constructs no quadratic variation, so `bracketMeasure` is *defined* as
-`φ²·trim_T` and earns the reading through the isometry and `bracketMeasure_mulLI` rather than
-through a `⟨M⟩` object — so the integrands square-integrable against `M` are the
-weighted space `L²(φ²·trim_T)`; and `ψ ↦ ψφ` is an isometry from it into `L²(trim_T)`. Composing
-with `itoIntegralCLM_T` gives `∫· dM` with the right domain and the right isometry for free.
+`M = φ●B` has bracket `d⟨M⟩ = φ² ds` in the standard theory — the repo constructs no pathwise
+quadratic-variation *object*, so `bracketMeasure` is *defined* as `φ²·trim_T`; but the reading
+is no longer only motivation: `norm_sq_increment_eq_bracket` proves the unconditional second
+moment `𝔼[(M_b − M_a)²] = ⟨M⟩((a,b] × Ω)`, the defining property quadratic variation is for, at
+the level of expectations (the conditional refinement stays unclaimed). So the integrands
+square-integrable against `M` are the weighted space `L²(φ²·trim_T)`; and `ψ ↦ ψφ` is an
+isometry from it into `L²(trim_T)`. Composing with `itoIntegralCLM_T` gives `∫· dM` with the
+right domain and the right isometry for free.
 
 | Theorem | Content |
 |---|---|
@@ -250,6 +252,7 @@ with `itoIntegralCLM_T` gives `∫· dM` with the right domain and the right iso
 | `MarketCompletenessInPrice.exists_replicating_strategy_in_price` | **Completeness, in the price.** Every square-integrable `𝓕ᴮ_T`-claim is the terminal wealth of a *unique* holding `ψ` in `S = S₀ + (σ●B)`. Only `σ ≠ 0` a.e. is needed, not a uniform lower bound: `‖ψ‖²_{L²(⟨S⟩)} = ∫(φ/σ)²σ² = ‖φ‖²`, so the weighted norm rescales and the holding is admissible however small `σ` gets. |
 | `ItoIntegralAgainstMartingale.itoIntegralAgainst_simpleProcess` | **The band identity, summed.** `∫V dM = ∑ₚ V(p)·(M_{p.2} − M_{p.1})` for a simple process, which is what makes `itoIntegralAgainst_unique_of_riemannStieltjes` able to take agreement with the *written-out* sums as its hypothesis rather than agreement with the integral being characterised. |
 | `ItoIntegralAgainstMartingale.bracketMeasure_mulLI` | **The tower closes on itself.** `d⟨ψ●M⟩ = ψ² d⟨M⟩`: an Itô integral against an Itô integral is again one, the brackets composing the way the integrands do. Densities multiply, and that is the whole proof. |
+| `ItoIntegralAgainstMartingale.norm_sq_increment_eq_bracket` | **The bracket earns its name.** `𝔼[(M_b − M_a)²] = ⟨M⟩((a,b] × Ω)` — the second moment of an increment is the bracket measure of its time band, which is the defining property quadratic variation is for, at the level of expectations (the conditional form `𝔼[(M_b−M_a)² | 𝓕_a] = 𝔼[⟨M⟩_b − ⟨M⟩_a | 𝓕_a]` stays unclaimed). One band: the increment is the integral of `bandRestrict`, the isometry turns the norm into an integral, and the band representative reads it off `(a,b] × Ω`. |
 | **`PricingMeasureL2Density.measure_eq_of_density`** | **The capstone.** If an adapted process agreeing a.e. with `S` is a `Q`-martingale and `Q = D·μ` with `D ∈ L²(μ)`, then `Q` agrees with `μ` on all of `𝓕ᴮ_T`. Leap 5's `PricesGainsAtZero` is a *conclusion* here, not a hypothesis. |
 | `MarketCompletenessInPrice.pricePathCondExp` | **The adaptedness the `Lp` process does not have.** `Martingale` requires adaptedness pointwise; an `Lp`-valued process supplies only its a.e. version, so `Martingale (pricePath …) 𝓕 Q` is a hypothesis with no exhibited witness. Rebuilding the price from `μ[· | 𝓕_t]` — adapted by construction, a.e. equal by `itoProcessCLM_eq_condExpL2` — supplies one, and `exists_density_price_martingale` assembles it. Without this the capstone would be true and empty. |
 
