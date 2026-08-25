@@ -100,7 +100,11 @@ integral against `M` on the bracket-weighted `L²(φ²·trim_T)` by composing `i
 and multiplier coincide). Both factors are isometries, so `‖∫ψ dM‖ = ‖ψ‖_{L²(⟨M⟩)}`; the chain rule
 `∫ψ dM = ∫ψφ dB` is then how the object is built, and what identifies it as *the* stochastic integral
 against `M` is `itoIntegralAgainst_elementary`, the Riemann–Stieltjes agreement `∫ Z·1_{(a,b]} dM =
-Z·(M_b − M_a)` on a band. The finance consequence is that a hedge is a **holding in the price**
+Z·(M_b − M_a)` on a band. Since 2026-08-24 the bracket reading is earned, not just motivated:
+`norm_sq_increment_eq_bracket` proves the unconditional second moment
+`𝔼[(M_b − M_a)²] = ⟨M⟩((a,b] × Ω)` — the defining property quadratic variation is for, at the
+level of expectations (the conditional form and a pathwise bracket stay out; they need a pointwise
+adapted `⟨M⟩_t = ∫₀ᵗ φ_s² ds`). The finance consequence is that a hedge is a **holding in the price**
 (`MarketCompletenessInPrice.exists_replicating_strategy_in_price`, needing only `σ ≠ 0` a.e. — the
 weighted norm rescales, so no uniform lower bound), and that the gains-neutrality hypothesis becomes a
 theorem: `PricingMeasureL2Density.measure_eq_of_density` derives `PricesGainsAtZero` from `S` being a

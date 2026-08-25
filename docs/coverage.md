@@ -26,11 +26,22 @@ Report `reduced_core` and `placeholder` separately. **Spec-with-axiomatized-conc
 
 ## Current Audit
 
-> **Live status (2026-08-17):** corpus
+> **Live status (2026-08-24):** corpus
 > **367**, **336 full + 18 wrappers = 354/367 delivery-ready**, 13 reduced cores, 0 placeholders.
 > Ledger 367 fresh / 0 stale / 0 missing; `lake build MathFin` and `lake lint` green, `pytest`
-> 50/50, `AxiomAuditGen` at 327 guards (231 curated). The **contracts tower** below is the new
-> round; the **Itô chain rule** and its coherence pass are the two blocks after it.
+> 50/50, `AxiomAuditGen` at 327 guards (231 curated). The **bracket second moment** below is the
+> newest round; the **contracts tower**, the **Itô chain rule**, and its coherence pass follow.
+>
+> **2026-08-24 — the bracket earns its name (#200; corpus unchanged at 367).**
+> `ItoIntegralAgainstMartingale.norm_sq_increment_eq_bracket` proves the unconditional second
+> moment `𝔼[(M_b − M_a)²] = ⟨M⟩((a,b] × Ω)` for `M = φ●B` — the defining property quadratic
+> variation is for, at the level of expectations, so the `d⟨M⟩ = φ²·trim_T` reading of
+> `bracketMeasure` is no longer only motivation. The conditional refinement
+> (`𝔼[(M_b−M_a)² | 𝓕_a] = 𝔼[⟨M⟩_b − ⟨M⟩_a | 𝓕_a]`) and any pathwise bracket stay unclaimed: the
+> bracket measure integrates `ω` out, so the conditional form needs a pointwise adapted bracket
+> process `t ↦ ∫₀ᵗ φ_s² ds` — the next rung on this seam. Supporting change:
+> `itoIntegralCLM_T_bandRestrict` (`∫ 𝟙_{(a,b]}·φ dB = M_b − M_a`) extracted from
+> `itoIntegralAgainst_elementary`, which now consumes it.
 >
 > **FIXED — the CRR→BS convergence theorems were vacuous as stated
 > (found 2026-08-19, fixed 2026-08-20).** All three carried
