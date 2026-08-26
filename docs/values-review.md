@@ -3169,6 +3169,52 @@ characterization is nowhere claimed.
    "good enough" in-file; a Lean-aware scanner is not worth its weight while
    the catch rate is this good (1 for 1 on first run).
 
+## 2026-08-25 — corpus 367 — the pointwise bracket rung, part 1: conditional kernels and band generators
+
+New Foundations depth, no corpus growth: `Foundations/PointwiseBracket` starts the rung above
+#200 — the *conditional* second moment `μ[(M_b−M_a)² | 𝓕_a] = μ[ωise ∫_a^b ⇑φ² du | 𝓕_a]`, which
+`bracketMeasure` (integrating ω out) cannot state. Landed: the four conditional Brownian kernels
+(increment zero-mean; squared increment → elapsed time; tower+pull-out upgrades to `𝓕_a`-adapted
+coefficients) and the single-band generators (`bandGen`, built on Degenne-side `stepSP`) with
+representative (`coeFn_bandAssembly`), support, and explicit-increment evaluation (`eval_bandGen`).
+
+### The standing first pass — prose against statement
+
+The module docstring states exactly what is proved and names the three unlanded steps (pair
+identity / density / extension) as recorded design, not results. No headline identity is claimed
+yet — deliberately, since claiming it in prose before the Lean exists is precisely the failure
+mode this pass exists for.
+
+### Design decisions worth recording
+
+* **The generator is `stepSP`'s assembly, not an `smulAdapted` wrapper**: the first draft wrapped
+  a constant-one band in `smulAdapted`, which double-scales by the coefficient; `ItoIntegralBrownian.stepSP`
+  already packages the single-band process with its explicit evaluation (`itoSimple_stepSP`), so the
+  wrapper (and an entire Finsupp-surgery detour through `iocSP_T`) deleted itself.
+* **The tower property needed a σ-finiteness shim**: `condExp_condExp_of_le` wants
+  `SigmaFinite (μ.trim hm)` for natural-filtration sub-σ-algebras; supplied as a private instance
+  (`isFiniteMeasure_trim` + `toSigmaFinite`). Instances with explicit leading binders are invisible
+  to typeclass search — the shim's binders had to be implicit.
+* **K3/K4 carry `_hprob : IsProbabilityMeasure μ` explicitly**: their proofs consume the shim, so
+  the probability instance must be in scope even though the statements don't mention it.
+
+### Ranked backlog
+
+| rank | item | owner |
+|---|---|---|
+| 1 | Pointwise bracket part 2: pair identity (disjoint/nested/partial cases via kernels + increment splitting), then density (`setIntegral_eq_zero_of_orthogonal_pred` + clip trick) and ε-extension to the headline conditional form | next session |
+| 2 | #199 — collapse `simpleAssembly_T` (carried) | unassigned |
+| 3 | Regenerate `docs/blueprint.md` (carried) | next session |
+| 4 | #194 — drift term in the Itô-process price | unassigned |
+| 5 | Lift `lpNorm_sq_eq_lintegral_enorm_sq` to `LpMulIsometry` when a second consumer appears | unassigned |
+
+### Evidence/context
+
+Mechanical floor: `lake build` (9004 jobs) + `lake lint` green in-container (daemon down);
+pytest 24/24; `axiom_audit_gen --write` byte-stable (327 guards); ledger 367/367 fresh (no corpus
+change — the new module is not yet corpus-referenced); module checks 0 errors / 0 warnings /
+0 sorries via daemon at `LEAN_ELAB_TIMEOUT=900`.
+
 ## 2026-08-24 — corpus 367 — the bracket earns its name (#200)
 
 A one-issue proof session: `ItoIntegralAgainstMartingale.norm_sq_increment_eq_bracket` proves
